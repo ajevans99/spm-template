@@ -30,11 +30,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Swift ${{ matrix.swift }}
-        if: matrix.platform != 'ios'
-        uses: swift-actions/setup-swift@v2
-        with:
-          swift-version: ${{ matrix.swift }}
+      # Not working https://github.com/swift-actions/setup-swift/issues/739
+      # - name: Set up Swift ${{ matrix.swift }}
+      #   if: matrix.platform != 'ios'
+      #   uses: swift-actions/setup-swift@v2
+      #   with:
+      #     swift-version: ${{ matrix.swift }}
 
       - name: Cache SwiftPM (Linux/macOS)
         if: matrix.platform == 'linux' || matrix.platform == 'macos'
@@ -81,11 +82,6 @@ jobs:
             ${{ runner.os }}-xcode-spm-
             ${{ runner.os }}-xcode-
 
-      - name: List package schemes (iOS/watchOS/tvOS)
-        if: matrix.platform == 'ios' || matrix.platform == 'watchos' || matrix.platform == 'tvos'
-        run: |
-          xcodebuild -list -json -package-path .
-
       - name: Test on iOS Simulator
         if: matrix.platform == 'ios'
         run: |
@@ -95,7 +91,6 @@ jobs:
             -sdk iphonesimulator \
             -package-path . \
             -skipPackagePluginValidation \
-            -quiet \
             test | xcbeautify --renderer github-actions
 
       - name: Build on watchOS Simulator
@@ -107,7 +102,6 @@ jobs:
             -sdk watchsimulator \
             -package-path . \
             -skipPackagePluginValidation \
-            -quiet \
             build | xcbeautify
 
       - name: Build on tvOS Simulator
@@ -119,5 +113,4 @@ jobs:
             -sdk appletvsimulator \
             -package-path . \
             -skipPackagePluginValidation \
-            -quiet \
             build | xcbeautify
