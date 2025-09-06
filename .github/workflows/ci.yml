@@ -85,32 +85,17 @@ jobs:
       - name: Test on iOS Simulator
         if: matrix.platform == 'ios'
         run: |
-          xcodebuild \
+          set -o pipefail && xcodebuild \
             -scheme spm-template-Package \
-            -destination 'platform=iOS Simulator,name=iPhone 15' \
-            -sdk iphonesimulator \
-            -package-path . \
+            -destination generic/platform=${{ matrix.platform }} \
             -skipPackagePluginValidation \
             test | xcbeautify --renderer github-actions
 
-      - name: Build on watchOS Simulator
-        if: matrix.platform == 'watchos'
+      - name: Build on watchOS/tvOS Simulator
+        if: matrix.platform == 'watchos' || matrix.platform == 'tvos'
         run: |
-          xcodebuild \
+          set -o pipefail && xcodebuild \
             -scheme spm-template-Package \
-            -destination 'platform=watchOS Simulator,name=Apple Watch Series 9 - 45mm' \
-            -sdk watchsimulator \
-            -package-path . \
-            -skipPackagePluginValidation \
-            build | xcbeautify
-
-      - name: Build on tvOS Simulator
-        if: matrix.platform == 'tvos'
-        run: |
-          xcodebuild \
-            -scheme spm-template-Package \
-            -destination 'platform=tvOS Simulator,name=Apple TV 4K' \
-            -sdk appletvsimulator \
-            -package-path . \
+            -destination generic/platform=${{ matrix.platform }} \
             -skipPackagePluginValidation \
             build | xcbeautify
