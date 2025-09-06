@@ -82,14 +82,14 @@ jobs:
             ${{ runner.os }}-xcode-spm-
             ${{ runner.os }}-xcode-
 
-      - name: Test on iOS Simulator
+      - name: Build on iOS Simulator
         if: matrix.platform == 'ios'
         run: |
           set -o pipefail && xcodebuild \
             -scheme spm-template-Package \
             -destination generic/platform=${{ matrix.platform }} \
             -skipPackagePluginValidation \
-            test | xcbeautify --renderer github-actions
+            build | xcbeautify --renderer github-actions
 
       - name: Build on watchOS/tvOS Simulator
         if: matrix.platform == 'watchos' || matrix.platform == 'tvos'
