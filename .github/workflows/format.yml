@@ -63,7 +63,6 @@ jobs:
           commit_message: Apply auto-formatting
           token: ${{ secrets.PAT }}
 
-      # TODO: Verify this works as intended
       - name: Apply auto-formatting (external PR via label)
         if: >
           steps.check_changes.outcome == 'failure' &&

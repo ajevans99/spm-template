@@ -36,6 +36,20 @@ jobs:
         with:
           swift-version: ${{ matrix.swift }}
 
+      - name: Cache SwiftPM (Linux/macOS)
+        if: matrix.platform == 'linux' || matrix.platform == 'macos'
+        uses: actions/cache@v4
+        with:
+          path: |
+            .build
+            ~/.swiftpm
+            ~/.cache/org.swift.swiftpm
+            ~/Library/Caches/org.swift.swiftpm
+          key: ${{ runner.os }}-swiftpm-${{ matrix.swift }}-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-swiftpm-${{ matrix.swift }}-
+            ${{ runner.os }}-swiftpm-
+
       - name: Swift version
         run: swift --version
 
@@ -52,6 +66,20 @@ jobs:
         run: |
           sudo xcode-select -s "/Applications/Xcode.app"
           xcodebuild -version
+
+      - name: Cache Xcode SPM artifacts (iOS/watchOS/tvOS)
+        if: matrix.platform == 'ios' || matrix.platform == 'watchos' || matrix.platform == 'tvos'
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/Library/Developer/Xcode/DerivedData/**/SourcePackages
+            ~/Library/Caches/com.apple.dt.Xcode/Downloads
+            ~/.swiftpm
+            ~/Library/Caches/org.swift.swiftpm
+          key: ${{ runner.os }}-xcode-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-xcode-spm-
+            ${{ runner.os }}-xcode-
 
       - name: List package schemes (iOS/watchOS/tvOS)
         if: matrix.platform == 'ios' || matrix.platform == 'watchos' || matrix.platform == 'tvos'
