@@ -1,0 +1,5 @@
+**/xcuserdata/
+**/xcshareddata/WorkspaceSettings.xcsettings
+
+# Derived build intermediates
+DerivedData/
