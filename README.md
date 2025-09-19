@@ -9,7 +9,7 @@
 A minimal Swift Package template targeting Swift 6.0+ with modern Swift Testing, CI for Linux/macOS/iOS, SPI config, and swift-format.
 
 > [!TIP]
-> The [`app` branch](https://github.com/ajevans99/spm-template/tree/app) contains an Xcode project template in `AppTemplate/` for creating iOS/macOS apps that links against the package in `Sources/SPMTemplate/` and has CI to build.
+> The [`app` branch](https://github.com/ajevans99/spm-template/tree/app) contains an Xcode project template in `AppTemplate/` for creating iOS/macOS apps that links against the package in `Sources/SPMTemplate/` and has CI to build apps.
 
 ## Usage
 
