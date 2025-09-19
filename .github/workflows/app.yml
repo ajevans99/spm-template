@@ -26,6 +26,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build (Debug)
+        working-directory: AppTemplate
         run: |
           set -eo pipefail
           xcodebuild \
