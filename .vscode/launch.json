@@ -9,6 +9,15 @@
       "name": "Release Playground",
       "program": "${workspaceFolder:spm-template}/.build/release/Playground",
       "preLaunchTask": "swift: Build Release Playground"
+    },
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:spm-template}",
+      "name": "Debug Playground",
+      "program": "${workspaceFolder:spm-template}/.build/debug/Playground",
+      "preLaunchTask": "swift: Build Debug Playground"
     }
   ]
 }
